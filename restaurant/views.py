@@ -4,7 +4,7 @@ from rest_framework import status
 from django.http import Http404
 
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 from .models import Menu, Booking
 from .serializers import MenuSerializer, BookingSerializer
@@ -13,7 +13,7 @@ from .serializers import MenuSerializer, BookingSerializer
 class MenuView(APIView):
     serializer_class = MenuSerializer
     authentication_classes = [SessionAuthentication, TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     
     def get(self, request, format=None):
         menu_items = Menu.objects.all()
@@ -31,7 +31,7 @@ class MenuView(APIView):
 class SingleItemMenuView(APIView):
     serializer_class = MenuSerializer
     authentication_classes = [SessionAuthentication, TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     
     def get_object(self, pk):
         try:
