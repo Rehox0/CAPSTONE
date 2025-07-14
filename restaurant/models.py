@@ -11,8 +11,8 @@ class Menu(models.Model):
 class Booking(models.Model):
     name = models.CharField(max_length=255)
     number_of_guests = models.IntegerField()
+    number_table = models.IntegerField()
     booking_date = models.DateField()
     
     def __str__(self):
-        return f"{self.name} : {self.number_of_guests} guests on {self.booking_date}"
-
+        return f"{self.name} for {self.number_of_guests} guests on {self.booking_date} for table #{self.number_table}"
