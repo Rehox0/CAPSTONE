@@ -2,12 +2,22 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
+from django.shortcuts import render
 
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 from .models import Menu, Booking
 from .serializers import MenuSerializer, BookingSerializer
+
+
+def index(request):
+    import datetime
+    current_year = datetime.datetime.now().year
+    context = {
+        'current_year': current_year,
+    }
+    return render(request, 'restaurant/index.html', context)
 
 
 class MenuView(APIView):

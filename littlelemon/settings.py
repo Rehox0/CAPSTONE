@@ -128,6 +128,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'restaurant' / 'static'
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -151,4 +157,6 @@ REST_FRAMEWORK = {
 DJOSER = {
     'USER_ID_FIELD' : 'id',
     'LOGIN_FIELD' : 'username',
+    'SERIALIZERS' : {'user_create': 'restaurant.serializers.CustomUserCreateSerializer',},
+    'PERMISSIONS': {'user_create': ['rest_framework.permissions.AllowAny'],},
 }
